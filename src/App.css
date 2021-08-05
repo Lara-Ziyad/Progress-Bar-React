@@ -1,38 +1,107 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --active: rgb(233, 155, 38);
+  --unactive: rgb(216, 216, 216);
+  --progress: rgb(155, 230, 253);
+}
+body {
+  font-family: 'Roboto', sans-serif;
+
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden; /*the scroll bars won't show by defult*/
+  margin: 0;
+}
+
+.container {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* background for the line and number */
+.progressContainer {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px;
+}
+
+/* making background for the line  */
+.progressContainer::before {
+  content: '';
+  background-color: var(--unactive);
+  position: absolute;
+  top: 50%;
+  left: 50;
+  height: 4px;
+  width: 100%;
+  transform: translateY(
+    -50%
+  ); /* to change the center line from top to be in the cener */
+  z-index: -1; /*to make the bar under the number */
+  transition: 0.45s ease; /*for animation*/
+}
+/* drawing the line  */
+.progress{
+  background-color: var(--active);
+  position: absolute;
+  top: 50%;
+  left: 50;
+  height: 4px;
+  width: 0%;
+  transform: translateY(
+    -50%
+  ); /* to change the center line from top to be in the cener */
+  z-index: -1; /*to make the bar under the number */
+  transition: 0.45s ease; /*for animation*/
+}
+
+.circle {
+  border: 2 px solid;
+  border-color: var(--unactive);
+  background-color: var(--unactive);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.circle.active {
+  background-color: var(--active);
+  color: var(--progress);
+  border-color: var(--active);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn {
+  border: 0;
+  border-radius: 6px;
+  margin: 10px;
+  background-color: var(--active);
+  cursor: pointer;
+  padding: 8px 30px;
+  font-size: 16px;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:focus {
+  background-color: rgb(211, 120, 2);
+}
+
+.btn:disabled {
+  background-color: rgb(247, 204, 149);
+  cursor: not-allowed;
 }
